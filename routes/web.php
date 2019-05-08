@@ -14,3 +14,35 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+/*
+ * Mediante Auth::user() conocemos si el usuario está loggeado. 
+ * En caso de que no esté loggeado, le obligamos a ello devolviendo la vista de login. 
+ * En caso de que ya esté loggeado, le devolvemos la vista del panel de administración. 
+ */
+Route::get('admin', function () {
+    if (true){//if (Auth::user()){
+        return view('admin.index');
+    } else {
+        return view('admin.login');
+    }
+});
+
+Route::group(['namespace' => 'Admin' /*, 'middleware' => 'auth'*/], function () {
+    Route::get('admin/users', 'UserController@index')->name('admin.users');
+    Route::get('admin/user/new', 'UserController@detail')->name('admin.users.new');
+    Route::get('admin/user/{id}/edit', 'UserController@detail');
+    Route::put('admin/user/{id}', 'UserController@update')->name('admin.users.update');
+    Route::delete('admin/user/{id}', 'UserController@destroy');
+    Route::post('admin/user', 'UserController@store')->name('admin.users.store');
+});
+
+
+Route::get('admin/floors', function(){
+})->name('admin.floors');
+
+Route::get('admin/rooms', function(){
+})->name('admin.rooms');
+
+Route::get('admin/promotions', function(){
+})->name('admin.promotions');
