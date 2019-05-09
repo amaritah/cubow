@@ -1,6 +1,6 @@
 <?php
 
-namespace AlbaVending\Http\Requests;
+namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,24 +25,11 @@ class UserRequest extends Request
      */
     public function rules()
     {
-        switch ($this->method()) {
-            case 'POST':
-                return [
-                    'name' => 'required|max:255',
-                    'email' => 'required|email|max:255',
-                    'password' => 'required|confirmed|min:6',
-                    'role_id' => 'required',
-                ];
-            case 'PATCH':
-                return [
-                    'name' => 'required|max:255',
-                    'email' => 'required|email|max:255',
-                    'password' => 'required|confirmed|min:6',
-                    'role_id' => 'required',
-                ];
-            default:break;
-        }
-
-        
+        return [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users,email,'.$this->id,
+            'password' => ($this->id)? '':'required|confirmed|min:6',
+            'role_id' => 'required',
+        ];
     }
 }

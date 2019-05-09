@@ -21,19 +21,19 @@ Route::get('/', function () {
  * En caso de que ya esté loggeado, le devolvemos la vista del panel de administración. 
  */
 Route::get('admin', function () {
-    if (true){//if (Auth::user()){
+    if (Auth::user()){
         return view('admin.index');
     } else {
         return view('admin.login');
     }
-});
+})->name('admin');
 
 Route::group(['namespace' => 'Admin' /*, 'middleware' => 'auth'*/], function () {
     Route::get('admin/users', 'UserController@index')->name('admin.users');
     Route::get('admin/user/new', 'UserController@detail')->name('admin.users.new');
-    Route::get('admin/user/{id}/edit', 'UserController@detail');
-    Route::put('admin/user/{id}', 'UserController@update')->name('admin.users.update');
-    Route::delete('admin/user/{id}', 'UserController@destroy');
+    Route::get('admin/user/{id}/edit', 'UserController@detail')->name('admin.users.edit');
+    Route::post('admin/user/{id}', 'UserController@update')->name('admin.users.update');
+    Route::delete('admin/user/{id}', 'UserController@destroy')->name('admin.users.destroy');
     Route::post('admin/user', 'UserController@store')->name('admin.users.store');
 });
 
@@ -46,3 +46,6 @@ Route::get('admin/rooms', function(){
 
 Route::get('admin/promotions', function(){
 })->name('admin.promotions');
+
+Auth::routes(['register' => false]);
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');

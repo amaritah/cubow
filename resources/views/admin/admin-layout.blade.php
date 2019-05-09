@@ -20,12 +20,12 @@
         
     </head>
     <body>
-        <div class="container" style="position:relative;">
+        <div class="container">
             <header>
                 
                 <div class=" nav">
-                    <nav class="navbar navbar-expand-lg navbar-light">
-                        <a class="navbar-brand logo float-left" href="/"><img src="{{ URL::asset('assets/img/login-logo-red.png') }}"/></a>
+                    <nav class="navbar navbar-expand-lg navbar-dark">
+                        <a class="navbar-brand logo float-left" href="{{route('admin')}}"><img class="logo" src="{{ URL::asset('img/logo-icon.png') }}"/></a>
                         
                         <!-- AQUI DEBERIA IR EL USUARIO LOGGEADO-->
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,7 +33,7 @@
                         </button>
 
                         <div class="collapse navbar-collapse order-last" id="navbarSupportedContent">
-                            <ul class="navbar-nav mr-auto float-right">
+                            <ul class="navbar-nav ">
                                 @include('admin.nav')
                             </ul>
                         </div>
@@ -41,11 +41,48 @@
                 </div>
             </header>
             <div id="content">
+                @yield('contentTitle')
+                
+                @if(Session::has('message'))
+                <div class="alert alert-primary alert-dismissible" role="alert">
+                    {{Session::get('message')}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                </div>
+                @endif
+                @if(Session::has('success'))
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    {{Session::get('success')}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @endif
+                @if(Session::has('error'))
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    {{Session::get('error')}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @endif
+                @if($errors->any())
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                    @foreach($errors->all() as $index => $error)
+                        @if ($index > 0) <br> @endif
+                        {{$error}}
+                    @endforeach
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
+                
                 @yield('content')
             </div> 
-            <div id="content-overlay">
-            </div>
             <footer>
+               <img class="logo" src="{{ URL::asset('img/logo.png') }}"/>
             </footer>
         </div>
        
@@ -61,26 +98,5 @@
         
         @yield('scripts')
         
-        @if (Session::has('message') || $errors->any() || Session::has('success') || Session::has('error'))
-        <script>
-            var messages = [];
-            @if(Session::has('message'))
-                messages.push("{{Session::get('message')}}");
-            @endif
-            @if(Session::has('success'))
-                messages.push("{{Session::get('success')}}");
-            @endif
-            @if(Session::has('error'))
-                messages.push("{{Session::get('error')}}");
-            @endif
-            @if($errors->any())
-                @foreach($errors->all() as $error)
-                messages.push("{{$error}}");
-                @endforeach
-            @endif
-            if (!(messages.indexOf('Usuario y/o contraseña incorrectos.') > -1 && $('#form-login').length < 1))
-                console.log('revisar esto'); //muestraMensaje(messages);
-        </script>
-        @endif
     </body>
 </html>

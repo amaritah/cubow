@@ -11,6 +11,10 @@ use App\Http\Controllers\Admin\AdminController;
  */
 use App\User;
 use App\Role;
+/*
+ * La inclusión del UserRequest nos permite realizar validaciones de los campos.
+ */
+use App\Http\Requests\UserRequest;
 
 class UserController extends AdminController
 {
@@ -23,8 +27,7 @@ class UserController extends AdminController
     
     public function index()
     {
-        return view('admin.users.index', ['selectedMenu' => 'users'])
-          ->withUsers(User::all());
+        return view('admin.users.index', ['selectedMenu' => 'users'])->withUsers(User::has('role')->get());
     }
     
     public function detail($id = null)
@@ -44,29 +47,21 @@ class UserController extends AdminController
         $user = new User;
 
         foreach (array_keys($this->fields) as $field) {
-          $user->$field = $request->get($field);
+            $user->$field = $request->get($field);
         }
         $user->password = bcrypt($request->input('password'));
 
         $user->save();
 
-        return redirect()
-            ->route('admin.users.index')
-            ->withSuccess('Nuevo usuario creado sin problemas.');
+        return redirect()->route('admin.users')->withSuccess('Nuevo usuario creado sin problemas.');
     }
 
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
         $user = User::find($id);
 
-        $this->validate($request, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users,email,'.$user->id,
-            'password' => 'confirmed|min:6',
-        ]);
-
         foreach (array_keys($this->fields) as $field) {
-          $user->$field = $request->get($field);
+            $user->$field = $request->get($field);
         }
 
         if ($request->get('password')) {
@@ -75,16 +70,14 @@ class UserController extends AdminController
 
         $user->save();
 
-        return redirect()
-            ->route('admin.users.index')
-            ->withSuccess('Usuario editado sin problemas.');
+        return redirect()->route('admin.users')->withSuccess('Usuario editado sin problemas.');
     }
 
     public function destroy($id)
     {
         User::destroy($id);
         return redirect()
-            ->route('admin.users.index')
+            ->route('admin.users')
             ->withSuccess('Usuario borrado sin problemas.');
     }
 

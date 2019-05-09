@@ -1,15 +1,18 @@
 @extends('admin.admin-layout')
 
-@section('title', ' - Listado de Usuarios')
+@section('title', ' - '.__('admin.listing').__('admin.users'))
 
-@section('content')
-<h1 class="pull-left">{{__('admin.listing')}} {{__('admin.users')}}
+@section('contentTitle')
+<h1>{{__('admin.listing')}}{{__('admin.users')}}
     <a href="{{route('admin.users.new')}}" class="btn btn-success btn-md float-right">
         <i class="fa fa-plus-circle"></i> {{__('admin.new')}} {{__('admin.user')}}
     </a>
 </h1>
+@endsection
+
+@section('content')
 <div class="col-12">
-    <table id="users-table" class="table table-striped table-bordered display responsive" width="100%">
+    <table id="datatable" class="table table-striped table-bordered display responsive" width="100%">
         <thead>
             <tr>
                 <th class="all">{{__('admin.name')}}</th>
@@ -25,11 +28,11 @@
             <tr>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
-                <td>{{ $user->role }}</td>
-                <td>{{ $user->role }}</td>
-                <td>{{ $user->role }}</td>
+                <td>{{ $user->role->name }}</td>
+                <td>{{ date('d/m/Y',strtotime($user->created_at)) }}</td>
+                <td>{{ date('d/m/Y',strtotime($user->updated_at)) }}</td>
                 <td class="print-hide">
-                    <a href="/admin/user/{{ $user->id }}/edit" class="btn btn-xs btn-info"><i class="fa fa-edit"></i></a>
+                    <a href="{{route('admin.users.edit', $user->id)}}" class="btn btn-xs btn-success"><i class="fa fa-edit"></i></a>
                 </td>
             </tr>
             @endforeach
@@ -38,15 +41,3 @@
 </div>
 @endsection
 
-@section('scripts')
-<script>
-    $(function () {
-        $("#users-table").DataTable({
-            "pageLength": 10,
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.10/i18n/Spanish.json"
-            }
-        });
-    });
-</script>
-@stop

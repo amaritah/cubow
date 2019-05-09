@@ -1,1 +1,211 @@
-
+*{
+    font-family: sans-serif;
+}
+.hidden{
+    display: none !important;
+}
+html, body{
+    height: 100%;
+    overflow: auto;
+}
+.container{
+    position: relative;
+    padding-bottom: 200px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+header{
+    background: #30323D;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+header .logo{
+    max-width: 75px;
+    margin-left: 1em;
+}
+footer{
+    height: 200px;
+    background: #30323D;
+    width: 100%;
+    flex-shrink: 0;
+}
+footer .logo{
+    display: block;
+    max-height: 170px;
+    margin: 0 auto;
+    padding-top: 25px;
+}
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+::-webkit-scrollbar-thumb {
+  background: #5c6d70; 
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+#content{
+    padding: 110px 0;
+    min-height: 500px;
+    flex: 1 0 auto;
+}
+.navbar{
+    width: 100%;
+}
+ul.navbar-nav {
+    padding:0 4em;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1024px;
+    margin-left: auto;
+}
+.navbar-expand-lg .navbar-nav .nav-link{
+    text-transform: uppercase;
+    color: white;
+    font-size: 1.2em;
+}
+.navbar-expand-lg .navbar-nav .active .nav-link, .navbar-expand-lg .navbar-nav li:hover .nav-link{
+    color: #e8c547;
+}
+h1{
+    padding: 1em 0.2em;
+    font-weight: bold;
+    color: #30323D;
+}
+.btn-success{
+    background: #5c6d70 !important;
+    border-color: #5c6d70 !important;
+}
+.btn-success:hover, .btn-success:active, .btn-success:active{
+    background: #e8c547 !important;
+    border-color: #e8c547 !important;
+}
+.btn-danger{
+    background: #e8c547 !important;
+    border-color: #e8c547 !important;
+}
+.btn-danger:hover, .btn-danger:active, .btn-danger:active{
+    background: #e8c547 !important;
+    border-color: #e8c547 !important;
+}
+.btn-info{
+    background: #ff7e6b !important;
+    border-color: #ff7e6b !important;
+}
+.btn-info:hover, .btn-info:active, .btn-info:active{
+    background: #e84855 !important;
+    border-color: #e84855 !important;
+}
+.buttons-container{
+    text-align: center;
+}
+.buttons-container button{
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1.2em;
+    margin: 2em 0;
+}
+.ui-dialog-titlebar{
+    display: none !important;
+}
+.logo-modal{
+    max-width: 75px;
+    margin: 2em auto;
+    display: block;
+}
+.dropdown-item.active, .dropdown-item:active{
+    background: #5C80BC;
+}
+.buttons-container button + button{
+    margin-left: 2em;
+}
+.dataTables_wrapper .dataTables_filter input{
+    border: none;
+    border-bottom: 2px solid #5c6d70;
+}
+.ui-widget-overlay.modal-overlay{
+    background-color: black;
+    background-image: none;
+    opacity: 0.5;
+    z-index: 1040;    
+}
+.alert-success{
+    color: white;
+    background:#5c80bc;
+    border-color:#5c80bc;
+    margin-bottom: 2em;
+}
+.alert-danger{
+    color: white;
+    background:#e84855;
+    border-color:#e84855;
+    margin-bottom: 2em;
+}
+th, td, table{
+    text-align: center;
+    border: none !important;
+    vertical-align: middle !important;
+    background: none !important;
+    color: #30323D;
+}
+table{
+    padding: 2em 0 !important;
+}
+tr{
+    background: none !important;
+}
+th,td{
+    border-bottom: 2px solid #5c6d70 !important;
+}
+label select{
+    margin: 0 0.2em;
+    border-radius: 5px;
+}
+#login-container{
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    min-height: 100vh;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+form.row{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.resetPass{
+    font-size: 1.1em;
+    font-weight: bold;
+    color: white !important;
+    cursor: pointer;
+}
+#login-box{
+    background: #5c6d70;
+    padding: 2em 1em;
+    border-radius: 25px;
+    width: 90%;
+    max-width: 720px;
+}
+.login-logo{
+    margin: 1em auto;
+    display: block;
+    max-width: 100%;
+}
+@media (min-width: 1440px){
+    header, .container{
+        max-width: 1400px;
+        padding: 0;
+    }
+}

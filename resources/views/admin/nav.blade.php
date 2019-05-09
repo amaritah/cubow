@@ -13,3 +13,6 @@
 <li class="nav-item @if($selectedMenu == 'promotions')active @endif">
     <a class="nav-link" data-container="promotions" href="{{route('admin.promotions')}}">{{__('admin.menuTitle4')}}</a>
 </li>
+<li class="nav-item">
+    <a class="nav-link" href="{{route('logout')}}">{{__('admin.logout')}}</a>
+</li>
