@@ -24,7 +24,11 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        //
+        /*
+         * Aquí defino las reglas que impedirán realizar acciones a los Dueños de Sala
+         */
+        Gate::define('admin-only', function ($user) {
+            return $user->role_id == 1;
+        });
     }
 }

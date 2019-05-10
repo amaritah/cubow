@@ -22,30 +22,65 @@ Route::get('/', function () {
  */
 Route::get('admin', function () {
     if (Auth::user()){
-        return view('admin.index');
+        if (Auth::user()->role_id == 1){
+            return view('admin.index');
+        } else{
+            return view('admin.rooms');
+        }
     } else {
         return view('admin.login');
     }
 })->name('admin');
 
-Route::group(['namespace' => 'Admin' /*, 'middleware' => 'auth'*/], function () {
+Route::group(['namespace' => 'Admin' , 'middleware' => 'auth'], function () {
+    /*
+     *  Rutas relativas a la administración de usuarios (CRUD) 
+     */
     Route::get('admin/users', 'UserController@index')->name('admin.users');
     Route::get('admin/user/new', 'UserController@detail')->name('admin.users.new');
     Route::get('admin/user/{id}/edit', 'UserController@detail')->name('admin.users.edit');
     Route::post('admin/user/{id}', 'UserController@update')->name('admin.users.update');
     Route::delete('admin/user/{id}', 'UserController@destroy')->name('admin.users.destroy');
     Route::post('admin/user', 'UserController@store')->name('admin.users.store');
+    /*
+     * Perfil de usuario, disponible para todos.
+     */
+    Route::get('admin/profile', 'UserController@profile')->name('profile');
+    /*
+     * Rutas relativas a la administración de pisos
+     */
+    Route::get('admin/floors', 'FloorController@index')->name('admin.floors');
+    Route::get('admin/floors/new', 'FloorController@detail')->name('admin.floors.new');
+    Route::get('admin/floors/{id}/edit', 'FloorController@detail')->name('admin.floors.edit');
+    Route::post('admin/floors/{id}', 'FloorController@update')->name('admin.floors.update');
+    Route::delete('admin/floors/{id}', 'FloorController@destroy')->name('admin.floors.destroy');
+    Route::post('admin/floors', 'FloorController@store')->name('admin.floors.store');
+    
+    /*
+     * Rutas relativas a la administración de salas
+     */
+    Route::get('admin/rooms', 'RoomController@index')->name('admin.rooms');
+    Route::get('admin/rooms/new', 'RoomController@detail')->name('admin.rooms.new');
+    Route::get('admin/rooms/{id}/edit', 'RoomController@detail')->name('admin.rooms.edit');
+    Route::post('admin/rooms/{id}', 'RoomController@update')->name('admin.rooms.update');
+    Route::delete('admin/rooms/{id}', 'RoomController@destroy')->name('admin.rooms.destroy');
+    Route::post('admin/rooms', 'RoomController@store')->name('admin.rooms.store');
 });
 
-
-Route::get('admin/floors', function(){
-})->name('admin.floors');
-
-Route::get('admin/rooms', function(){
-})->name('admin.rooms');
 
 Route::get('admin/promotions', function(){
 })->name('admin.promotions');
 
+
 Auth::routes(['register' => false]);
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+/*
+ * Redefinimos el login, para no mostrar el de Laravel.
+ */
+Route::get('login', function () {
+    if (Auth::user()){
+        return view('admin.index');
+    } else {
+        return view('admin.login');
+    }
+})->name('login');

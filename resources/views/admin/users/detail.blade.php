@@ -1,4 +1,4 @@
-@extends('admin.admin-layout', ['selectedMenu' => 'users'])
+@extends('admin.admin-layout', ['selectedMenu' => $selectedMenu])
 
 @section('contentTitle')
 <h1>
@@ -9,9 +9,11 @@
     {{__('admin.new').' '.__('admin.user')}}
     @section('title', ' - '.__('admin.new').' '.__('admin.user'))
     @endif
+    @if ($selectedMenu != 'profile')
     <a href="{{route('admin.users')}}" class="btn btn-success btn-md float-right">
         <i class="fa fa-angle-left"></i> {{__('admin.goBack')}}
     </a>
+    @endif
 </h1>
 @endsection
 
@@ -73,7 +75,7 @@
                 <i class="fa fa-plus-circle"></i>
                 {{__('admin.save')}}
             </button>
-            @if($id)
+            @if($id && $selectedMenu != 'profile')
             <button type="submit" class="btn btn-info btn-md delete-entity" data-delete="{{$id}}">
                 <i class="fa fa-times-circle"></i>
                 {{__('admin.delete')}}

@@ -27,7 +27,6 @@
                     <nav class="navbar navbar-expand-lg navbar-dark">
                         <a class="navbar-brand logo float-left" href="{{route('admin')}}"><img class="logo" src="{{ URL::asset('img/logo-icon.png') }}"/></a>
                         
-                        <!-- AQUI DEBERIA IR EL USUARIO LOGGEADO-->
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>

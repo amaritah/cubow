@@ -15,6 +15,8 @@ use App\Role;
  * La inclusión del UserRequest nos permite realizar validaciones de los campos.
  */
 use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Gate;
+use Auth;
 
 class UserController extends AdminController
 {
@@ -27,19 +29,34 @@ class UserController extends AdminController
     
     public function index()
     {
-        return view('admin.users.index', ['selectedMenu' => 'users'])->withUsers(User::has('role')->get());
+        if (Gate::allows('admin-only', Auth::user()))
+            return view('admin.users.index', ['selectedMenu' => 'users'])->withUsers(User::has('role')->get());
+        else 
+            return redirect()->route('admin.rooms');
     }
     
-    public function detail($id = null)
+    public function detail($id = null, $selectedMenu = 'users')
     { 
-        $user = ($id)? User::find($id): new User;
-        $data = ['id' => $id];
-        foreach (array_keys($this->fields) as $field) {
-          $data[$field] = old($field, $user->$field);
-        }
-        $data['roles'] = Role::all();
+        if (Gate::allows('admin-only', Auth::user()) || $selectedMenu == 'profile'){
+            $user = ($id)? User::find($id): new User;
+            $data = ['id' => $id];
+            foreach (array_keys($this->fields) as $field) {
+              $data[$field] = old($field, $user->$field);
+            }
+            $data['roles'] = Role::all();
+            $data['selectedMenu'] = $selectedMenu;
 
-        return view('admin.users.detail', $data);
+            return view('admin.users.detail', $data);
+        }
+        else 
+            return redirect()->route('admin.rooms');
+    }
+    
+    public function profile()
+    { 
+        if (!Auth::user())
+            return redirect()->route('admin');
+        return $this->detail(Auth::user()->id, 'profile');
     }
 
     public function store(UserRequest $request)
