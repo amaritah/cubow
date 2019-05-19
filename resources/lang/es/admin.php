@@ -51,5 +51,11 @@ return [
     'description'   =>  'Descripción',
     'preview'       =>  'Previsualización en plano',
     'image_gallery' =>  'Galería de imágenes',
+    'promotion_img' =>  'Imagen de la promoción',
+    'start_date'    =>  'Desde',
+    'end_date'      =>  'Hasta',
+    'QR'            =>  'QR Activo',
+    'yes'           =>  'Sí',
+    'no'            =>  'No',
     'dropzone'      =>  'Añade tus imágenes aquí',
 ];

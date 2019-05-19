@@ -12,10 +12,11 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Promotion;
 use App\Room; 
 /*
- * La inclusión del RoomRequest nos permite realizar validaciones de los campos.
+ * La inclusión del PromotionRequest nos permite realizar validaciones de los campos.
  * Tanto la Gate como Auth serán necesarios para poder validar a los Dueños, editando y viendo solo sus salas. Además, no podrán crear.
  */
-use App\Http\Requests\RoomRequest;
+use App\Http\Requests\PromotionRequest;
+use App\Http\Requests\RoomImageRequest;
 use Illuminate\Support\Facades\Gate;
 use Auth;
 
@@ -41,8 +42,7 @@ class PromotionController extends AdminController
          * Con la sala en la query, hay que comprobar que la sala pertenezca al usuario concreto.
          */
         $promotions = (Gate::allows('admin-only', Auth::user()))? Promotion::has('room')->get(): 
-            Promotion::has('room')->leftJoin('rooms', 'rooms.id', '=', 'promotions.room_id')->where('rooms.user_id', Auth::user()->id)->get();
-
+            Promotion::whereHas('room', function($query) { $query->where('user_id', Auth::user()->id); })->get();
         return view('admin.promotions.index', ['selectedMenu' => 'promotions'])->withPromotions($promotions);
     }
     
@@ -57,7 +57,11 @@ class PromotionController extends AdminController
             
             $data = ['id' => $id];
             foreach (array_keys($this->fields) as $field) {
-              $data[$field] = old($field, $room->$field);
+                if (($field == 'start' && $promotion->start) || ($field == 'end' && $promotion->end)){
+                    $data[$field] = date("d/m/Y", strtotime($promotion->$field));
+                } else {
+                    $data[$field] = old($field, $promotion->$field);
+                }
             }
             /* 
              * Hay que transmitir las salas a las que se tiene acceso.
@@ -80,6 +84,17 @@ class PromotionController extends AdminController
         foreach (array_keys($this->fields) as $field) {
             $promotion->$field = $request->get($field);
         }
+        /*
+         * Cambio el formato de fechas, al propio de SQL
+         */
+        if ($promotion->start){
+            $date = str_replace('/', '-', $promotion->start );
+            $promotion->start = date("Y-m-d", strtotime($date));
+        }
+        if ($promotion->end){
+            $date = str_replace('/', '-', $promotion->end );
+            $promotion->end = date("Y-m-d", strtotime($date));
+        }
 
         $promotion->save();
         return redirect()->route('admin.promotions')->withSuccess('Nueva promoción creada sin problemas.');
@@ -93,8 +108,22 @@ class PromotionController extends AdminController
         $promotion = Promotion::find($id);
 
         foreach (array_keys($this->fields) as $field) {
-            $promotion->$field = $request->get($field);
+            if ($field != 'img_path'){
+                $promotion->$field = $request->get($field);
+            }
         }
+        /*
+         * Cambio el formato de fechas, al propio de SQL
+         */
+        if ($promotion->start){
+            $date = str_replace('/', '-', $promotion->start );
+            $promotion->start = date("Y-m-d", strtotime($date));
+        }
+        if ($promotion->end){
+            $date = str_replace('/', '-', $promotion->end );
+            $promotion->end = date("Y-m-d", strtotime($date));
+        }
+            
 
         $promotion->save();
 
@@ -107,6 +136,33 @@ class PromotionController extends AdminController
         return redirect()
             ->route('admin.promotions')
             ->withSuccess('Promoción borrada sin problemas.');
+    }
+    
+    
+    /*
+    * Esté código lo he cogido de https://appdividend.com/2018/05/31/laravel-dropzone-image-upload-tutorial-with-example/
+    */
+    public function fileStore(RoomImageRequest $request, $id){
+        $image = $request->file('file');
+        $imageName = $image->getClientOriginalName();
+        $image->move(public_path('images/promotions'),$imageName); 
+        
+        $promotion = Promotion::find($id);
+        $promotion->img_path = '/images/promotions/'.$imageName;
+        $promotion->save();
+        return response()->json(['success'=>$imageName]);
+    }
+    public function fileDestroy(RoomImageRequest $request)
+    {
+        $filename =  $request->get('filename');
+        $promotion = Promotion::where('img_path','/images/promotions/'.$filename)->first();
+        $promotion->img_path = '';
+        $promotion->save();
+        $path=public_path().'/images/promotions'.$filename;
+        if (file_exists($path)) {
+            unlink($path);
+        }
+        return $filename;  
     }
 
 }
