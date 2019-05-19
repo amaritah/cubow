@@ -57,16 +57,14 @@
                     <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" value="">
                 </div>
             </div>
-            <div class="form-group col-xl-6 col-sm-12 col-xs-12 col-lg-6 col-md-6 @if(Auth::user()->role_id > 1) hidden @endif">
+            <div class="form-group col-xl-6 col-sm-12 col-xs-12 col-lg-6 col-md-6">
                 <label for="role" class=" control-label">
                     {{__('admin.role')}}
                 </label>
                 <div class=" ">
-                    <select  name="role_id" class="form-control selectpicker" name="role_id" id="role_id" data-live-search="true">
+                    <select name="role_id" class="form-control selectpicker" name="role_id" id="role_id" data-live-search="true">
                         @foreach($roles as $role)
-                            @if(Auth::user()->role_id < 2 || $role->id == $role_id)
-                                <option value="{{$role->id}}" @if($role->id == $role_id)selected="selected" @endif>{{$role->name}}</option>
-                            @endif
+                        <option value="{{$role->id}}" @if($role->id == $role_id)selected="selected" @endif>{{$role->name}}</option>
                         @endforeach
                     </select>
                 </div>

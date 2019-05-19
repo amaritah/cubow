@@ -14,10 +14,6 @@
 
 @section('content')
 <div class="col-12 form-container">
-    <h3 style="margin-bottom: 2em;">{{__('admin.image_gallery')}}</h3>
-    <form method="post" action="{{route('admin.rooms.imageUpload', $id)}}" enctype="multipart/form-data" style="margin: 2em 0;" class="dropzone" id="myAwesomeDropzone">
-        @csrf
-    </form> 
     <form class="form-horizontal" role="form" enctype="multipart/form-data" method="POST" action="@if($id) {{route('admin.rooms.update', $id)}} @else {{route('admin.rooms.store')}} @endif">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -36,7 +32,7 @@
                     {{__('admin.owner')}}
                 </label>
                 <div class=" ">
-                    <select name="user_id" class="form-control selectpicker" name="user_id" id="user_id" data-live-search="true">
+                    <select name="user_id" @if($disabled) disabled @endif class="form-control selectpicker" name="user_id" id="user_id" data-live-search="true">
                         <option value=""></option>
                         @foreach($users as $user)
                         <option value="{{$user->id}}" @if($user->id == $user_id)selected="selected" @endif>{{$user->name}}</option>
@@ -50,7 +46,7 @@
                     {{__('admin.floor')}}
                 </label>
                 <div class=" ">
-                    <select name="floor_id" class="form-control selectpicker" name="floor_id" id="floor_id" data-live-search="true">
+                    <select name="floor_id" @if($disabled) disabled @endif class="form-control selectpicker" name="floor_id" id="floor_id" data-live-search="true">
                         @foreach($floors as $floor)
                         <option value="{{$floor->id}}" @if($floor->id == $floor_id)selected="selected" @endif>{{$floor->abbreviation}}</option>
                         @endforeach
@@ -82,28 +78,23 @@
                 </div>
             </div>
 
-            <div class="form-group @if($disabled) hidden @endif col-xl-12 col-sm-12 col-xs-12 col-lg-12 col-md-12">
+            <div class="form-group @if($disabled) hidden @endif col-xl-6 col-sm-12 col-xs-12 col-lg-6 col-md-6">
                 <label for="scheme" class=" control-label">
                     {{__('admin.scheme')}}
                 </label>
                 <div class="">
-                    <textarea class="form-control" name="scheme" name="scheme" id="scheme">{!! $scheme !!}</textarea>
+                    <textarea  @if($disabled) disabled @endif class="form-control" name="scheme" name="scheme" id="scheme">{!! $scheme !!}</textarea>
                 </div>
             </div>
-            <div class="form-group col-xl-12 col-sm-12 col-xs-12 col-lg-12 col-md-12">
+            <div class="form-group col-xl-6 @if($disabled) hidden @endif col-sm-12 col-xs-12 col-lg-6 col-md-6">
                 <label for="scheme" class=" control-label">
                     {{__('admin.preview')}}
                 </label>
                 <div id="preview">
-                    <svg viewBox="0 0 720 210"">
+                    <svg style="width:100%; height: 300px;">
                         <defs></defs>
-                        <g>
-                        @foreach($rooms as $room)
-                            @if ($room->id != $id)
-                                 {!! $room->scheme !!}
-                            @endif
-                        @endforeach
-                            {!! str_replace('#CCC','#e8c547', $scheme) !!}
+                        <g >
+                            {!! $scheme !!}
                         </g>
                     </svg>
                     
@@ -147,66 +138,11 @@
 
 @section('scripts')
 <script src="{{ URL::asset('ckeditor/ckeditor.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.js"></script>
-<script>
-var myDropZone = Dropzone.options.myAwesomeDropzone = {
-   maxFilesize: 12,
-   maxFiles: 3,
-   renameFile: function(file) {
-       var dt = new Date();
-       var time = dt.getTime();
-      return time+file.name;
-   },
-   acceptedFiles: ".jpeg,.jpg,.png,.gif",
-   timeout: 50000,
-   dictDefaultMessage: "{{__('admin.dropzone')}}",
-   dictRemoveFile: "{{__('admin.delete')}}",
-   dictCancelUpload: "{{__('admin.cancel')}}",
-   addRemoveLinks: true,
-   removedfile: function(file) 
-   {
-       var name = (typeof(file.upload) == 'undefined')?file.name: file.upload.filename;
-       $.ajax({
-           headers: {
-            'X-CSRF-TOKEN': $('input[name="_token"]').val()
-           },
-           type: 'POST',
-           url: '{{ route("admin.rooms.imageDelete") }}',
-           data: {filename: name},
-           success: function (data){
-               console.log("Archivo eliminado.");
-           },
-           error: function(e) {
-               console.log(e);
-           }});
-           var fileRef;
-           return (fileRef = file.previewElement) != null ? 
-           fileRef.parentNode.removeChild(file.previewElement) : void 0;
-   },
-   success: function(file, response) 
-   {
-       console.log(response);
-   },
-   error: function(file, response)
-   {
-      return false;
-   },
-    init: function () {
-        
-        @foreach($room_images as $room_image)
-            var mockFile = { name: "{{str_replace('/images/rooms/', '', $room_image->img_path)}}"};     
-            this.options.addedfile.call(this, mockFile);
-            this.files.push(mockFile); // here you add them into the files array
-            this.options.thumbnail.call(this, mockFile, "{{$room_image->img_path}}");
-            mockFile.previewElement.classList.add('dz-success');
-            mockFile.previewElement.classList.add('dz-complete');
-        @endforeach
-        console.log(this.files)
-    }
-};
+<script >
+$(function () {
+    $('#scheme').on('change', function(){
+        $('#preview svg g').html($(this).val());
+    });
+});
 </script>
 @endsection 
-
-@section('styles')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">
-@endsection

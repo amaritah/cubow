@@ -4,6 +4,9 @@
 
 @section('contentTitle')
 <h1>{{__('admin.listing')}}{{__('admin.rooms')}}
+    <a href="{{route('admin.rooms.new')}}" class="btn btn-success btn-md float-right">
+        <i class="fa fa-plus-circle"></i> {{__('admin.new2')}} {{__('admin.room')}}
+    </a>
 </h1>
 @endsection
 

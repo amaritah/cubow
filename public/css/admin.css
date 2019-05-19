@@ -8,11 +8,6 @@ html, body{
     height: 100%;
     overflow: auto;
 }
-.dropzone .dz-preview .dz-image img {
-    display: block;
-    width: auto;
-    height: 100%;
-}
 .container{
     position: relative;
     padding-bottom: 200px;
