@@ -208,6 +208,54 @@ form.row{
     display: block;
     max-width: 100%;
 }
+.score-container, .dashboard-container {
+    padding: 1em;
+}
+.score-container div{
+    font-size: 3em;
+    font-weight: bold;
+    background: #30323D;
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.score-container div i, .score-container div span{
+    display: block;
+    width: 100%;
+    padding-top: 0.2em;
+}
+.dashboard-container div{
+    font-size: 2em;
+    font-weight: bold;
+    color: #30323D;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    border: 2px solid #30323D;
+}
+.dashboard-container div i{
+    display: inline-block;
+    width: 20%;
+    padding: 15px;
+    align-self: flex-start;
+}
+.dashboard-container div span{
+    padding: 0 1em;
+}
+.dashboard-container.red div{
+    background-color: #f8d7da;
+}
+.dashboard-container.green div{
+    background-color: #d4edda;
+}
+.dashboard-container.yellow div{
+    background-color: #fff3cd;  
+}
+.dashboard-container.blue div{
+    background-color: #cce5ff;
+}
+
 @media (min-width: 1440px){
     header, .container{
         max-width: 1400px;

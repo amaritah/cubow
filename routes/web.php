@@ -15,24 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-/*
- * Mediante Auth::user() conocemos si el usuario está loggeado. 
- * En caso de que no esté loggeado, le obligamos a ello devolviendo la vista de login. 
- * En caso de que ya esté loggeado, le devolvemos la vista del panel de administración. 
- */
-Route::get('admin', function () {
-    if (Auth::user()){
-        if (Auth::user()->role_id == 1){
-            return view('admin.index');
-        } else{
-            return redirect('/admin/rooms');
-        }
-    } else {
-        return view('admin.login');
-    }
-})->name('admin');
 
 Route::group(['namespace' => 'Admin' , 'middleware' => 'auth'], function () {
+    /*
+     * Ruta del índice del panel de administración o dashboard
+     */
+    Route::get('admin', 'ScoreController@index')->name('admin');
     /*
      *  Rutas relativas a la administración de usuarios (CRUD) 
      */
@@ -94,7 +82,7 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
  */
 Route::get('login', function () {
     if (Auth::user()){
-        return view('admin.index');
+        return redirect('/admin');
     } else {
         return view('admin.login');
     }
