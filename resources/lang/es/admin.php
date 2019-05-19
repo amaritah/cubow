@@ -46,6 +46,10 @@ return [
     'owner'         =>  'Dueño',
     'owner'         =>  'Dueño',
     'new2'          =>  'Nueva',
+    'promotion'     =>  'Promoción',
+    'promotions'    =>  'Promociones',
     'description'   =>  'Descripción',
-    'preview'       =>  'Previsualización',
+    'preview'       =>  'Previsualización en plano',
+    'image_gallery' =>  'Galería de imágenes',
+    'dropzone'      =>  'Añade tus imágenes nuevas arrastrándolas aquí.',
 ];
