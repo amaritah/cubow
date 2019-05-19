@@ -11,9 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','PublicController@index')->name('welcome');
+/*
+ * Solo acepto por POST las solicitudes de obtener la información de la parte pública.
+ */
+Route::post('/obtain-data','PublicController@obtainData');
 
 
 Route::group(['namespace' => 'Admin' , 'middleware' => 'auth'], function () {

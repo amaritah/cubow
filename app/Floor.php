@@ -10,4 +10,8 @@ class Floor extends Model
     protected $fillable = [
         'name', 'abbreviation',
     ];
+    
+    public function rooms(){
+        return $this->hasMany('App\Room');
+    }
 }

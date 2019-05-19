@@ -21,4 +21,11 @@ class Room extends Model
     public function floor() {
       return $this->belongsTo(Floor::class);
     }
+    
+    public function promotions(){
+        return $this->hasMany(Promotion::class);
+    }
+    public function images(){
+        return $this->hasMany(RoomImage::class);
+    }
 }
