@@ -17,6 +17,22 @@
     </head>
     <body>
         <div class="container">
+            <div id="loader">
+                <div class="wrap">
+                    <img class="logo" src="{{ URL::asset('img/logo-icon.png') }}"/>
+                    <div class="loading">
+                        <div class="bounceball"></div>
+                        <div class="loading-text">{{__('public.loading')}}</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="content" class="hidden">
+                poner PISOS arriba izquierda.
+                Poner caritas arriba CENTRO
+                CENTRO planos
+                ABAJO es para las salas.
+            </div>
         </div>
         
         <script src="{{ URL::asset('js/jquery.min.js') }}"></script>

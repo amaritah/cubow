@@ -1,5 +1,5 @@
 <?php
 
 return [
-    
+    'loading'   =>  'Cargando...'
 ];
