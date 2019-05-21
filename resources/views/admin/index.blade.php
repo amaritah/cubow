@@ -55,6 +55,12 @@
                 <span class="counter">{{count($promotions)}}</span>{{__('admin.promotions')}}
             </div>
         </div>
+        <div class="col-12 dashboard-container">
+            <div>
+                <i class="fas fa-certificate fa-2x"></i>
+                <span class="counter">{{count($categories)}}</span>{{__('admin.categories')}}
+            </div>
+        </div>
     </div>
 </div>
 @endsection

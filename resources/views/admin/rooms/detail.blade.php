@@ -58,6 +58,18 @@
                 </div>
             </div>
             <div class="form-group col-xl-6 col-sm-12 col-xs-12 col-lg-6 col-md-6">
+                <label for="category_id" class=" control-label">
+                    {{__('admin.category')}}
+                </label>
+                <div class=" ">
+                    <select name="category_id" class="form-control selectpicker" name="category_id" id="category_id" data-live-search="true">
+                        @foreach($categories as $category)
+                        <option value="{{$category->id}}" @if($category->id == $category_id)selected="selected" @endif>{{$category->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-xl-6 col-sm-12 col-xs-12 col-lg-6 col-md-6">
                 <label for="title" class=" control-label">
                     {{__('admin.email')}}
                 </label>

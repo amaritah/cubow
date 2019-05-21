@@ -39,6 +39,8 @@ return [
     'logout'        =>  'Salir',
     'profile'       =>  'Perfil',
     'floors'        =>  'Pisos',
+    'category'      =>  'Categoría',
+    'categories'    =>  'Categorías',
     'floor'         =>  'Piso',
     'room'          =>  'Sala',
     'rooms'         =>  'Salas',

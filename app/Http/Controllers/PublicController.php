@@ -8,6 +8,7 @@ namespace App\Http\Controllers;
 use App\Floor; 
 use App\Room; 
 use App\Score; 
+use App\Category; 
 
 use App\Http\Requests\PublicRequest;
 
@@ -34,6 +35,8 @@ class PublicController extends Controller
            $floor['rooms'] = Room::with('promotions')->with('images')->where('floor_id', $floor->id)->get();
             return $floor;
         });
+        $data['floors'] = $floors;
+        $data['categories'] = Category::all();
         /*
          * Dependiendo del tipo de dato solicitado, exporto en un sistema u otro.
          */
@@ -42,7 +45,15 @@ class PublicController extends Controller
         } elseif ($type == 'xls'){
             
         } else{
-            echo json_encode($floors);
+            echo json_encode($data);
         }
+    }
+    /*
+     * Función sencilla para insertar un voto.
+     */
+    public function vote(PublicRequest $request){
+        $score = new Score;
+        $score->score = $request->get('score');
+        $score->save();
     }
 }

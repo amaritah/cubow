@@ -10,6 +10,7 @@ use App\Room;
 use App\Promotion; 
 use App\User; 
 use App\Floor; 
+use App\Category; 
 /*
  * La inclusión del PromotionRequest nos permite realizar validaciones de los campos.
  * Tanto la Gate como Auth serán necesarios para poder validar a los Dueños, editando y viendo solo sus salas. Además, no podrán crear.
@@ -40,6 +41,7 @@ class ScoreController extends AdminController {
                 $data['rooms'] = Room::all();
                 $data['floors'] = Floor::all();
                 $data['promotions'] = Promotion::all();
+                $data['categories'] = Category::all();
                 
                 return view('admin.index', $data);
             } else{

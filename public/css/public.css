@@ -2,6 +2,9 @@
     width: 100vh;
     height: 100vh;
 }
+*{
+    color: #212529;
+}
 .hidden{
     display: none;
 }
@@ -10,6 +13,9 @@ body {
     width: 100%;
     height: 100vh;
     font-family: Montserrat;
+}
+#content{
+    height: 100vh;
 }
 
 .wrap {
@@ -52,6 +58,18 @@ body {
             animation: bounce 500ms alternate infinite ease;
 }
 
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #fff; 
+}
+::-webkit-scrollbar-thumb {
+  background: #5c6d70; 
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
 @-webkit-keyframes bounce {
   0% {
     top: 30px;
@@ -88,4 +106,111 @@ body {
   100% {
     top: 0;
   }
+}
+
+#scoring{
+    float:right;
+    max-width: 14em;
+    padding-top: 1em;
+    align-items: center; 
+}
+#scoring > .col-8{
+    display: block;
+    margin: 0 auto;
+}
+#scoring i{
+    text-align: center;
+    cursor: pointer;
+    color: #e8c547;
+    padding: 0;
+}
+#scoring h4{
+    font-weight: bold;
+    font-size: .65em;
+    text-transform: uppercase;
+    text-align: center;
+}
+#floors, #logo{
+    float: left;    
+    max-width: 20%;
+    padding-top: 1em;
+}
+#logo img{
+    max-width: 80%;
+}
+#floors h2{
+    text-align: center;
+    font-size: 1.5em;
+}
+#floors h2.selected{
+    font-weight: bold;
+    color: #e8c547;
+}
+#scoring, #floors {
+    max-height: 30vh;
+    overflow-y: scroll;
+}
+#map-scheme{
+    height: 50vh;
+    padding-top: 20vh;
+}
+#main-content{
+    height: 48vh;
+    overflow: scroll;
+}
+#main-content h3{
+    font-size: 1.5em;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: .5em 0;
+    text-align: center;
+}
+#main-content #room-selector {
+    -moz-column-count: 4;
+    -moz-column-gap: 10px;
+    -webkit-column-count: 4;
+    -webkit-column-gap: 10px;
+    column-count: 4;
+    column-gap: 10px;
+}
+#main-content #room-selector p{
+    margin: 0.2em 0;
+    padding: 0.2em 0.5em;
+}
+#main-content #room-selector p.category{
+    font-weight: bold;
+    background: #5c6d70;
+    color: white;
+}
+#main-content #room-selector p.room{
+    cursor: pointer;
+}
+#image-gallery, #description{
+    padding: 5px 15px;
+    text-align: justify;
+}
+#image-gallery img {
+    max-width: 30%;
+    margin: 0 1.5%;
+}
+@media screen and (max-width: 1024px){
+    .container, #loader {
+        max-width: 100%;
+    }
+    #main-content #room-selector {
+        -moz-column-count: 2;
+        -moz-column-gap: 10px;
+        -webkit-column-count: 2;
+        -webkit-column-gap: 10px;
+        column-count: 2;
+        column-gap: 10px;
+    }
+    #map-scheme{
+        height: 40vh;
+        padding-top: 20vh;
+    }
+    #main-content{
+        height: 58vh;
+        overflow: scroll;
+    }
 }

@@ -15,6 +15,7 @@
                 <th class="all">{{__('admin.name')}}</th>
                 <th>{{__('admin.floor')}}</th>
                 <th>{{__('admin.owner')}}</th>
+                <th>{{__('admin.category')}}</th>
                 <th>{{__('admin.created_at')}}</th>
                 <th>{{__('admin.updated_at')}}</th>
                 <th data-sortable="false">{{__('admin.edit')}}</th>
@@ -26,6 +27,7 @@
                 <td>{{ $room->name }}</td>
                 <td>{{ $room->floor->abbreviation }}</td>
                 <td>{{ $room->user->name }}</td>
+                <td>{{ $room->category->name }}</td>
                 <td>{{ date('d/m/Y',strtotime($room->created_at)) }}</td>
                 <td>{{ date('d/m/Y',strtotime($room->updated_at)) }}</td>
                 <td class="print-hide">

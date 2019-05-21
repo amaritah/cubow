@@ -28,10 +28,26 @@
             </div>
             
             <div id="content" class="hidden">
-                poner PISOS arriba izquierda.
-                Poner caritas arriba CENTRO
-                CENTRO planos
-                ABAJO es para las salas.
+                <div id="floors"></div>
+                <div id="scoring" class="row">
+                    <h4 class="scoring-title col-12 ">{{__('public.scoringTitle')}}</h4>
+                    <h4 class="hidden scoring-response col-12" >{{__('public.scoringResp')}}</h4>
+                    <div class="row col-8">
+                        <i class="far fa-frown-open col-3 fa-2x" data-score="1"></i>
+                        <i class="far fa-meh fa-2x col-5"  data-score="2"></i>
+                        <i class="far fa-smile fa-2x col-3"  data-score="3"></i>
+                    </div>
+                </div>
+                <div id="map-scheme">
+                    <svg viewBox="0 0 720 210">
+                        <defs></defs>
+                        <g> </g>
+                    </svg>
+                </div>
+                <div id="main-content"></div>
+                <div id="images" class="hidden">
+                    
+                </div>
             </div>
         </div>
         

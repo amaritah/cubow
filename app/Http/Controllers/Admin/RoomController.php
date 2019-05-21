@@ -13,6 +13,7 @@ use App\Room;
 use App\User;
 use App\Floor; 
 use App\RoomImage;
+use App\Category;
 /*
  * La inclusión del RoomRequest nos permite realizar validaciones de los campos.
  * Tanto la Gate como Auth serán necesarios para poder validar a los Dueños, editando y viendo solo sus salas. Además, no podrán crear.
@@ -34,6 +35,7 @@ class RoomController extends AdminController
         'user_id' => '',
         'email' => '',
         'phone' => '',
+        'category_id' => '',
         'scheme' => '',
     ];
     
@@ -42,7 +44,7 @@ class RoomController extends AdminController
         /*
          * Si es dueño de sala, solo obtiene las suyas.
          */
-        $rooms = (Gate::allows('admin-only', Auth::user()))? Room::has('floor')->get(): Room::where('user_id', Auth::user()->id)->has('floor')->get();
+        $rooms = (Gate::allows('admin-only', Auth::user()))? Room::has('floor')->has('category')->get(): Room::where('user_id', Auth::user()->id)->has('floor')->has('category')->get();
         $rooms->map(function ($room) {
             $room['user'] = ($room['user_id'])? User::find($room['user_id']): new User;
             return $room;
@@ -69,6 +71,7 @@ class RoomController extends AdminController
             $data['users'] = (Gate::allows('admin-only', Auth::user()))? User::where('role_id', '2')->get(): User::where('id', Auth::user()->id)->get();
             $data['disabled'] = !Gate::allows('admin-only', Auth::user());
             $data['rooms'] = Room::where('floor_id', $room->floor_id)->get();
+            $data['categories'] = Category::all();
             $data['room_images'] = RoomImage::where('room_id', $id)->get();
 
             return view('admin.rooms.detail', $data);

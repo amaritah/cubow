@@ -11,7 +11,7 @@ class Room extends Model
      * Se especifican los distintos campos rellenables del formulario
      */
     protected $fillable = [
-        'name', 'description','room_id', 'scheme', 'phone', 'email', 'user_id'
+        'name', 'description','room_id', 'scheme', 'phone', 'email', 'user_id', 'category_id'
     ];
     
     /*
@@ -27,5 +27,8 @@ class Room extends Model
     }
     public function images(){
         return $this->hasMany(RoomImage::class);
+    }
+    public function category(){
+        return $this->belongsTo(Category::class);
     }
 }
