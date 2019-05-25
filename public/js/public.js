@@ -12,7 +12,7 @@ var mallData; // Donde se guarda todo lo recibido
 var imgs; // Variable que se utiliza para calcular la carga de imágenes según https://stackoverflow.com/questions/11071314/javascript-execute-after-all-images-have-loaded
 var imgLength; // Variable que se utiliza para calcular la carga de imágenes
 var imgCounter; // Variable que se utiliza para calcular la carga de imágenes
-var floorDefault = 1;
+var floorDefault = 0;
 /*
  * Función que inicializa la página. Se ejecuta al inicio de esta, y al pasar cierto tiempo de inactividad.
  */
@@ -100,8 +100,6 @@ function vote(){
  * En caso de que si se pueda seleccionar, traemos sus salas y su plano.
  */
 function selectFloor(){
-    if ($(this).hasClass('selected'))
-        return false;
     $('#floors h2.selected').removeClass('selected');
     $(this).addClass('selected');
     /*

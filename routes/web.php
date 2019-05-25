@@ -16,6 +16,7 @@ Route::get('/','PublicController@index')->name('welcome');
  * Solo acepto por POST las solicitudes de obtener la información de la parte pública.
  */
 Route::post('/obtain-data','PublicController@obtainData');
+Route::get('/obtain-data','PublicController@obtainData');
 Route::post('/vote','PublicController@vote');
 
 

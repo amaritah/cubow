@@ -38,16 +38,9 @@
                         <i class="far fa-smile fa-2x col-3"  data-score="3"></i>
                     </div>
                 </div>
-                <div id="map-scheme">
-                    <svg viewBox="0 0 720 210">
-                        <defs></defs>
-                        <g> </g>
-                    </svg>
-                </div>
+                <div id="map-scheme"></div>
                 <div id="main-content"></div>
-                <div id="images" class="hidden">
-                    
-                </div>
+                <div id="images" class="hidden"></div>
             </div>
         </div>
         
