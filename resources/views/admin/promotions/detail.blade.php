@@ -99,7 +99,7 @@
     </form>
 </div>
 
-@if($id)
+@if($id && false)
 <div id="delete-entity" class="hidden">
     <form method="POST" action="{{ route('admin.promotions.destroy',$id) }}">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">

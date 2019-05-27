@@ -154,6 +154,42 @@ function selectRoom(){
     cleanContent(room.name);
     $('#main-content').append($('<div/>', { id: 'image-gallery'}));
     $('#main-content').append($('<div/>', { id: 'description', html: room.description}));
+    
+    if (room.promotions.length > 0){
+        $.each(room.promotions, function(index, promotion){
+            /*
+             * En caso de haber especificado fechas en la promoción, si no están disponibles, saltamos la promoción.
+             */
+            if (promotion.start){
+                if ((new Date()).getTime() <  (new Date(promotion.start)).getTime())
+                    return true;
+            }
+            if (promotion.end){
+                if ((new Date()).getTime() >  (new Date(promotion.end)).getTime())
+                    return true;
+            }
+            let promotionContainer = $('<div/>', { class: 'promotion-container col-12 row'});
+            promotionContainer.append($('<h4/>', { class: 'col-12', text: promotion.name}));
+            promotionContainer.append($('<img/>', { class: 'col-6 img-responsive', src: promotion.img_path}));
+            promotionContainer.append($('<div/>', { class: 'col-6', html: promotion.description}));
+            $('#main-content').append(promotionContainer);
+            if (promotion.qr){
+                /*
+                 * Creación de QR según el ejemplo de:
+                 * https://davidshimjs.github.io/qrcodejs/
+                 */
+                promotionContainer.append($('<div/>', {class: 'col-12 text-center', id: 'promotion-qr-' + promotion.id}));
+                var qrcode = new QRCode('promotion-qr-' + promotion.id, {
+                text: "https://cubow.es/promotion/"+promotion.id,
+                width: 128,
+                height: 128,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
+            }
+        });
+    }
     /*
      * Imágenes almacenadas de la sala. Las copiamos en la zona de contenido.
      */

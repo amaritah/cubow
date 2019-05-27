@@ -59,5 +59,6 @@ return [
     'QR'            =>  'QR Activo',
     'yes'           =>  'Sí',
     'no'            =>  'No',
+    'uses'          =>  'Usos',
     'dropzone'      =>  'Añade tus imágenes aquí',
 ];

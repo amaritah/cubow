@@ -34,9 +34,8 @@ class ScoreController extends AdminController {
                  * Obtenemos todos los datos del sistema para el Dashboard. En principio solo se van a contar, pero podríamos usarlos para obtener información 
                  * más concreta respecto a ellos.
                  */
-                $data['scores1'] = Score::where('score', 1)->get();
-                $data['scores2'] = Score::where('score', 2)->get();
-                $data['scores3'] = Score::where('score', 3)->get();
+                $data['scores'] = Score::selectRaw('count(*) as total, score')->groupBy('score')->havingRaw('total > 0')->get();
+                
                 $data['users'] = User::all();
                 $data['rooms'] = Room::all();
                 $data['floors'] = Floor::all();

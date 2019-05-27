@@ -17,8 +17,9 @@
             <tr>
                 <th class="all">{{__('admin.name')}}</th>
                 <th>{{__('admin.room')}}</th>
-                <th>{{__('admin.created_at')}}</th>
-                <th>{{__('admin.updated_at')}}</th>
+                <th>{{__('admin.uses')}}</th>
+                <th>{{__('admin.start_date')}}</th>
+                <th>{{__('admin.end_date')}}</th>
                 <th data-sortable="false">{{__('admin.edit')}}</th>
             </tr>
         </thead>
@@ -27,8 +28,9 @@
             <tr>
                 <td>{{ $promotion->name }}</td>
                 <td>{{ $promotion->room->name }}</td>
-                <td>{{ date('d/m/Y',strtotime($promotion->created_at)) }}</td>
-                <td>{{ date('d/m/Y',strtotime($promotion->updated_at)) }}</td>
+                <td>{{ $promotion->uses }}</td>
+                <td> @if ($promotion->start) {{ date('d/m/Y',strtotime($promotion->start)) }} @endif</td>
+                <td> @if ($promotion->end) {{ date('d/m/Y',strtotime($promotion->end)) }} @endif</td>
                 <td class="print-hide">
                     <a href="{{route('admin.promotions.edit', $promotion->id)}}" class="btn btn-xs btn-success"><i class="fa fa-edit"></i></a>
                 </td>

@@ -48,6 +48,7 @@
         <script src="{{ URL::asset('js/popper.js') }}"></script>
         <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
         <script src="{{ URL::asset('js/jquery-ui.min.js') }}"></script>
+        <script src="{{ URL::asset('js/qrcode.min.js') }}"></script>
         <script src="{{ URL::asset('js/public.js') }}"></script>
         
     </body>

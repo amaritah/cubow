@@ -42,7 +42,7 @@
                 <i class="fa fa-plus-circle"></i>
                 {{__('admin.save')}}
             </button>
-            @if($id)
+            @if($id && false)
             <button type="submit" class="btn btn-info btn-md delete-entity" data-delete="{{$id}}">
                 <i class="fa fa-times-circle"></i>
                 {{__('admin.delete')}}
@@ -52,7 +52,7 @@
     </form>
 </div>
 
-@if($id)
+@if($id && false)
 <div id="delete-entity" class="hidden">
     <form method="POST" action="{{ route('admin.floors.destroy',$id) }}">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">

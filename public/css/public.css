@@ -214,3 +214,28 @@ body {
         overflow: scroll;
     }
 }
+.img-responsive{
+    max-width: 100%;
+}
+.promotion-view *{
+    padding-right: 0;
+    padding-left: 0;
+    font-family: serif;
+}
+.promotion-view div{
+    text-align: justify;
+}
+.promotion-view h1{
+    font-weight: bold;
+    color: #e8c547;
+    margin-top: .5em;
+    margin-bottom: .5em;
+}
+.promotion-container > img{
+    height: 50%;
+    margin: 0 auto;
+    width: 50%;
+}
+.promotion-container div img{
+    margin: 1em auto;
+}

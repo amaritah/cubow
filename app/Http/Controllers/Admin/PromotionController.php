@@ -33,6 +33,7 @@ class PromotionController extends AdminController
         'qr' => '',
         'start' => '',
         'end' => '',
+        'uses' => '',
     ];
     
     public function index()

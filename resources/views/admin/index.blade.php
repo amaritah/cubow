@@ -7,28 +7,22 @@
 @section('content')
 <div class="row">
     <div class="col-xl-8 col-sm-12 col-xs-12 col-lg-8 col-md-8 row">
+        @foreach ($scores as $score)
         <div class="col-4 score-container">
             <div>
+                @if ($score->score == 1)
                 <i class="far fa-frown-open fa-3x"></i>
-                <span class="counter">{{count($scores1)}}</span>
-            </div>
-        </div>
-
-        <div class="col-4 score-container">
-            <div>
+                @elseif ($score->score == 2)
                 <i class="far fa-meh fa-3x"></i>
-                <span class="counter">{{count($scores2)}}</span>
-            </div>
-        </div>
-        
-        <div class="col-4 score-container">
-            <div>
+                @else
                 <i class="far fa-smile fa-3x"></i>
-                <span class="counter">{{count($scores3)}}</span>
+                @endif
+                <span class="counter">{{$score->total}}</span>
             </div>
         </div>
+        @endforeach
         
-        </div>
+    </div>
     <div class="col-xl-4 col-sm-12 col-xs-12 col-lg-4 col-md-4 row">
         
         <div class="col-12 dashboard-container red">

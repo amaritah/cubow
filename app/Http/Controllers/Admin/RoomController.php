@@ -44,7 +44,9 @@ class RoomController extends AdminController
         /*
          * Si es dueño de sala, solo obtiene las suyas.
          */
-        $rooms = (Gate::allows('admin-only', Auth::user()))? Room::has('floor')->has('category')->get(): Room::where('user_id', Auth::user()->id)->has('floor')->has('category')->get();
+        $rooms = (Gate::allows('admin-only', Auth::user()))? 
+            Room::has('floor')->has('category')->get(): 
+            Room::where('user_id', Auth::user()->id)->has('floor')->has('category')->get();
         $rooms->map(function ($room) {
             $room['user'] = ($room['user_id'])? User::find($room['user_id']): new User;
             return $room;

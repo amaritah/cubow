@@ -9,6 +9,7 @@ use App\Floor;
 use App\Room; 
 use App\Score; 
 use App\Category; 
+use App\Promotion; 
 
 use XMLWriter; 
 use App\Http\Requests\PublicRequest;
@@ -101,5 +102,22 @@ class PublicController extends Controller
         $score = new Score;
         $score->score = $request->get('score');
         $score->save();
+    }
+    
+    /*
+     * Función para consumir una promoción, actualizando los usos.
+     */
+    public function showPromo(PublicRequest $request, $id){
+        $promotion = Promotion::find($id);
+        /*
+         * Si la promoción no existe, redirigimos al usuario a la home.
+         */
+        if (!$promotion){
+            return redirect()->route('welcome');
+        }
+        $promotion->uses++;
+        $promotion->save();
+        
+        return view('promotion', ['promotion' => $promotion]);
     }
 }

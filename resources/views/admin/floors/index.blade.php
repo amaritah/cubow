@@ -4,9 +4,11 @@
 
 @section('contentTitle')
 <h1>{{__('admin.listing')}}{{__('admin.floors')}}
+   @if(false)
     <a href="{{route('admin.floors.new')}}" class="btn btn-success btn-md float-right">
         <i class="fa fa-plus-circle"></i> {{__('admin.new')}} {{__('admin.floor')}}
     </a>
+   @endif
 </h1>
 @endsection
 

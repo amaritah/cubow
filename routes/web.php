@@ -18,6 +18,7 @@ Route::get('/','PublicController@index')->name('welcome');
 Route::post('/obtain-data','PublicController@obtainData');
 Route::get('/obtain-data','PublicController@obtainData');
 Route::post('/vote','PublicController@vote');
+Route::get('/promotion/{id}', 'PublicController@showPromo');
 
 
 Route::group(['namespace' => 'Admin' , 'middleware' => 'auth'], function () {
@@ -42,10 +43,10 @@ Route::group(['namespace' => 'Admin' , 'middleware' => 'auth'], function () {
      * Rutas relativas a la administración de pisos
      */
     Route::get('admin/floors', 'FloorController@index')->name('admin.floors');
-    Route::get('admin/floors/new', 'FloorController@detail')->name('admin.floors.new');
+    //Route::get('admin/floors/new', 'FloorController@detail')->name('admin.floors.new');
     Route::get('admin/floors/{id}/edit', 'FloorController@detail')->name('admin.floors.edit');
     Route::post('admin/floors/{id}', 'FloorController@update')->name('admin.floors.update');
-    Route::delete('admin/floors/{id}', 'FloorController@destroy')->name('admin.floors.destroy');
+    //Route::delete('admin/floors/{id}', 'FloorController@destroy')->name('admin.floors.destroy');
     Route::post('admin/floors', 'FloorController@store')->name('admin.floors.store');
     
     /*
