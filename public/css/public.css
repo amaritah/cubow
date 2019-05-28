@@ -239,3 +239,15 @@ body {
 .promotion-container div img{
     margin: 1em auto;
 }
+@media only screen and (max-width: 767px){
+    .promotion-container > img{
+        height: 100%;
+        margin: 1em auto;
+        width: 100%;
+    }
+}
+#background-white{
+    background: white;    
+    width: 100%;
+    height: 100vh;
+}

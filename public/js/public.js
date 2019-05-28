@@ -75,6 +75,22 @@ function loadedImage(){
             $('#floors h2[data-floor='+floorDefault+']').click();
         else
             $('#floors h2').first().click();
+        openFullscreen(document.getElementById('background-white'));
+    }
+}
+/*
+ * 
+ * Modo quiosco según https://www.w3schools.com/howto/howto_js_fullscreen.asp
+ */
+function openFullscreen(elem) {
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.mozRequestFullScreen) { /* Firefox */
+        elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE/Edge */
+        elem.msRequestFullscreen();
     }
 }
 /*
@@ -171,7 +187,7 @@ function selectRoom(){
             let promotionContainer = $('<div/>', { class: 'promotion-container col-12 row'});
             promotionContainer.append($('<h4/>', { class: 'col-12', text: promotion.name}));
             promotionContainer.append($('<img/>', { class: 'col-6 img-responsive', src: promotion.img_path}));
-            promotionContainer.append($('<div/>', { class: 'col-6', html: promotion.description}));
+            promotionContainer.append($('<div/>', { class: 'col-lg-6 col-xl-6 col-md-6 col-sm-12 col-xs-12', html: promotion.description}));
             $('#main-content').append(promotionContainer);
             if (promotion.qr){
                 /*
@@ -180,13 +196,13 @@ function selectRoom(){
                  */
                 promotionContainer.append($('<div/>', {class: 'col-12 text-center', id: 'promotion-qr-' + promotion.id}));
                 var qrcode = new QRCode('promotion-qr-' + promotion.id, {
-                text: "https://cubow.es/promotion/"+promotion.id,
-                width: 128,
-                height: 128,
-                colorDark : "#000000",
-                colorLight : "#ffffff",
-                correctLevel : QRCode.CorrectLevel.H
-            });
+                    text: "https://cubow.es/promotion/"+promotion.id,
+                    width: 128,
+                    height: 128,
+                    colorDark : "#000000",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.H
+                });
             }
         });
     }

@@ -10,7 +10,6 @@
 
         <link href="{{ URL::asset('css/fontawesome.min.css') }}" rel="stylesheet">
         <link href="{{ URL::asset('css/bootstrap.min.css') }}" rel="stylesheet">
-        <link href="{{ URL::asset('css/jquery-ui.min.css') }}" rel="stylesheet">
         <link href="{{ URL::asset('css/public.css') }}" rel="stylesheet">
         
         
@@ -25,7 +24,6 @@
         <script src="{{ URL::asset('js/jquery.min.js') }}"></script>
         <script src="{{ URL::asset('js/popper.js') }}"></script>
         <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
-        <script src="{{ URL::asset('js/jquery-ui.min.js') }}"></script>
         <script src="{{ URL::asset('js/qrcode.min.js') }}"></script>
         
     </body>
