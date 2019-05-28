@@ -15,7 +15,7 @@
         <link href="{{ URL::asset('css/jquery-ui.min.css') }}" rel="stylesheet">
         <link href="{{ URL::asset('css/admin.css') }}" rel="stylesheet">
     </head>
-    <body style="background: #e8c547;">
+    <body >
         <div class="container" >
             <div id="login-container">
                 <div id="login-box">

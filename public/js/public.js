@@ -5,6 +5,7 @@ $(function(){
     $('#scoring i').on('click', vote);
     $('body').on('click','#floors h2', selectFloor);
     $('body').on('click','#main-content #room-selector .room,svg path', selectRoom);
+    $('body').on('click', '.go-back', function(){ $('#floors .selected').click() })
 });
 var idleTime = 0; // Tiempo de inactividad
 var idleInterval; // 
@@ -37,6 +38,7 @@ function init(){
             $('#floors, #images').html('');
             imgCounter = 0;
             mallData = $.parseJSON(data);
+            $('#floors').append($('.logo').clone());
             $.each(mallData.floors, function(index, floor){
                 $('#floors').append($('<h2/>', {text: floor.abbreviation, 'data-floor' : index}));
                 /*
@@ -121,10 +123,10 @@ function selectFloor(){
     /*
      * Se limpia y se rellena el área de contenido
      */
-    cleanContent(mallData.floors[$(this).attr('data-floor')].name);
+    cleanContent();
     $('#main-content').append($('<div/>', {id: 'room-selector'}));
     
-    let html = '<svg  viewBox="-20 0 720 210"><defs></defs><g>';
+    let html = '<h3>'+mallData.floors[$(this).attr('data-floor')].name+'</h3><svg  viewBox="-20 0 720 210"><defs></defs><g>';
     /*
      * Se va rellenando el SVG y el listado de categorías con sus salas.
      */
@@ -142,8 +144,8 @@ function selectFloor(){
 /*
  * Función para limpiar el cuadro inferior, cambiándole el título
  */
-function cleanContent(title){
-    $('#main-content').html('<h3>'+ title +'</h3>');
+function cleanContent(){
+    $('#main-content').html('');
 }
 /*
  * Función para buscar un nombre entre las categorías
@@ -167,10 +169,11 @@ function selectRoom(){
      * Buscamos la sala en cuestión seleccionada.
      */
     let room = searchRoom($(this).attr('data-room'));
-    cleanContent(room.name);
-    $('#main-content').append($('<div/>', { id: 'image-gallery'}));
+    cleanContent();
+    $('#main-content').append($('<h3/>', {text: room.name}));
+    $('#main-content').append($('<a/>', {html: '<i class="fas fa-arrow-circle-left"></i>', class: 'go-back'}));
     $('#main-content').append($('<div/>', { id: 'description', html: room.description}));
-    
+    $('#main-content').append($('<div/>', { id: 'image-gallery'}));
     if (room.promotions.length > 0){
         $.each(room.promotions, function(index, promotion){
             /*

@@ -214,12 +214,16 @@ form.row{
 .score-container div{
     font-size: 3em;
     font-weight: bold;
-    background: #30323D;
-    color: white;
+    /*background: #30323D;
+    */
+    color: #30323D;
     border-radius: 10px;
     text-align: center;
 }
 
+footer .logo{ 
+    max-width: 100%;
+}
 .score-container div i, .score-container div span{
     display: block;
     width: 100%;
@@ -273,5 +277,10 @@ form.row{
     #content{
         padding-right: 15px;
         padding-left: 15px;
+    }
+}
+@media (max-width: 900px){
+    .dashboard-container div{
+        font-size: 1em;
     }
 }

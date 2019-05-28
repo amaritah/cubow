@@ -4,6 +4,7 @@
 }
 *{
     color: #212529;
+    font-family: sans-serif;
 }
 .hidden{
     display: none;
@@ -12,7 +13,6 @@ body {
     position: relative;
     width: 100%;
     height: 100vh;
-    font-family: Montserrat;
 }
 #content{
     height: 100vh;
@@ -59,13 +59,13 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 3px;
 }
 ::-webkit-scrollbar-track {
   background: #fff; 
 }
 ::-webkit-scrollbar-thumb {
-  background: #5c6d70; 
+  background: #555; 
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #555; 
@@ -109,10 +109,12 @@ body {
 }
 
 #scoring{
-    float:right;
-    max-width: 14em;
-    padding-top: 1em;
-    align-items: center; 
+    background: #30323D;
+    justify-content: space-between;
+    display: flex;
+    display: -ms-flexbox;
+    align-items: center;
+    margin: 0
 }
 #scoring > .col-8{
     display: block;
@@ -125,15 +127,28 @@ body {
     padding: 0;
 }
 #scoring h4{
-    font-weight: bold;
-    font-size: .65em;
+    font-size: 1em;
     text-transform: uppercase;
     text-align: center;
+    color: white;
 }
-#floors, #logo{
+#logo{
     float: left;    
-    max-width: 20%;
-    padding-top: 1em;
+    width: 100%;
+    padding: 1em;
+}
+#floors .logo{
+    max-width: 2em;
+    height: 2em;
+}
+#floors{
+    height: 8vh;
+    background: #30323D;
+    justify-content: space-between;
+    display: flex;
+    display: -ms-flexbox;
+    align-items: center;
+    padding: 0.5em 2em;
 }
 #logo img{
     max-width: 80%;
@@ -141,22 +156,47 @@ body {
 #floors h2{
     text-align: center;
     font-size: 1.5em;
+    display: inline-block;
+    width: auto;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
 }
 #floors h2.selected{
-    font-weight: bold;
     color: #e8c547;
 }
-#scoring, #floors {
-    max-height: 30vh;
-    overflow-y: scroll;
+#scoring{
+    height: 8vh;
+    width: 100%;
 }
 #map-scheme{
-    height: 50vh;
-    padding-top: 20vh;
+    height: 42vh;
+    padding-top: 8vh;
+    position: relative;
+}
+#map-scheme h3{
+    text-align: center;
+    top: .5em;
+    position: absolute;
+    font-weight: bold;
+    width: 100%;
+    color: #30323D;
 }
 #main-content{
-    height: 48vh;
+    height: 42vh;
     overflow: scroll;
+    position: relative;
+}
+.go-back{
+    font-size: 2em;
+    color: #e8c547 !important;
+    position: absolute;
+    top: 0;
+    left: 5px;
+    cursor: pointer;
+}
+.go-back i{
+    color: #e8c547 !important;
 }
 #main-content h3{
     font-size: 1.5em;
@@ -164,6 +204,7 @@ body {
     font-weight: bold;
     padding: .5em 0;
     text-align: center;
+    color: #30323D;
 }
 #main-content #room-selector {
     -moz-column-count: 4;
@@ -191,11 +232,14 @@ body {
 }
 #image-gallery img {
     max-width: 30%;
+    border-radius: 100%;
+    border: 5px solid #e8c547;
     margin: 0 1.5%;
 }
-@media screen and (max-width: 1024px){
+@media screen and (max-width: 1200px){
     .container, #loader {
         max-width: 100%;
+        padding: 0;
     }
     #main-content #room-selector {
         -moz-column-count: 2;
@@ -206,12 +250,38 @@ body {
         column-gap: 10px;
     }
     #map-scheme{
-        height: 40vh;
-        padding-top: 20vh;
+        height: 42vh;
+        padding-top: 8vh;
     }
     #main-content{
-        height: 58vh;
+        height: 41vh;
         overflow: scroll;
+    }
+}
+@media screen and (max-width: 1023px){
+    #map-scheme{
+        height: 34vh;
+        padding-top: 6vh;
+    }
+    #main-content{
+        height: 50vh;
+        overflow: scroll;
+    }
+}
+@media screen and (max-width: 767px){
+    #map-scheme{
+        height: 30vh;
+        padding-top: 11vh;
+    }
+    #scoring h4 {
+        font-size: .7em;
+    }
+    #main-content{
+        height: 55vh;
+        overflow: scroll;
+    }
+    #scoring h4 {
+        font-size: .7em;
     }
 }
 .img-responsive{
@@ -220,7 +290,6 @@ body {
 .promotion-view *{
     padding-right: 0;
     padding-left: 0;
-    font-family: serif;
 }
 .promotion-view div{
     text-align: justify;
@@ -235,6 +304,11 @@ body {
     height: 50%;
     margin: 0 auto;
     width: 50%;
+}
+.promotion-container h4{
+    padding: 1em 0;
+    text-align: center;
+    font-weight: bold;
 }
 .promotion-container div img{
     margin: 1em auto;
