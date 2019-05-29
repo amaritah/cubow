@@ -100,8 +100,10 @@ class PublicController extends Controller
      */
     public function vote(PublicRequest $request){
         $score = new Score;
-        $score->score = $request->get('score');
-        $score->save();
+        if ($request->get('score')){
+            $score->score = $request->get('score');
+            $score->save();
+        }
     }
     
     /*
